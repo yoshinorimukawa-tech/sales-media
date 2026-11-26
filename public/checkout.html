@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ご注文手続き｜武川農園</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="sub-page">
+  <header class="header is-scrolled">
+    <a class="brand" href="index.html">
+      <img src="assets/emblem.svg" alt="" width="48" height="48">
+      <span class="brand-text"><b>武川農園</b><small>MUKAWA FARM</small></span>
+    </a>
+    <a class="back-link" href="index.html#products">お買い物を続ける</a>
+  </header>
+
+  <main class="checkout">
+    <h1>ご注文手続き</h1>
+
+    <div class="empty-state" id="emptyState" hidden>
+      <p>カートに商品がありません。</p>
+      <a class="btn btn-dark" href="index.html#products">商品一覧へ</a>
+    </div>
+
+    <div class="checkout-grid" id="checkoutGrid" hidden>
+      <form id="orderForm">
+        <fieldset class="panel">
+          <legend>ご依頼主様</legend>
+          <label class="field">お名前<em>必須</em><input name="name" autocomplete="name" maxlength="50" required></label>
+          <label class="field">メールアドレス<em>必須</em><input type="email" name="email" autocomplete="email" maxlength="100" required></label>
+          <label class="field">電話番号<em>必須</em><input type="tel" name="tel" autocomplete="tel" pattern="[0-9\-]{10,15}" title="半角数字とハイフンで入力してください" required></label>
+          <label class="field short">郵便番号<em>必須</em><input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{3}-?[0-9]{4}" title="例：400-0000" required></label>
+          <label class="field short">都道府県<em>必須</em><select name="pref" required></select></label>
+          <label class="field">市区町村・番地・建物名<em>必須</em><input name="address" autocomplete="street-address" maxlength="150" required></label>
+        </fieldset>
+
+        <fieldset class="panel">
+          <legend>お届け先</legend>
+          <label class="check"><input type="checkbox" name="isGift" checked> ご依頼主と別の住所へ贈る</label>
+          <fieldset class="gift-fields" id="giftFields">
+            <label class="field">贈り先のお名前<em>必須</em><input name="giftName" maxlength="50" required></label>
+            <label class="field">贈り先の電話番号<em>必須</em><input type="tel" name="giftTel" pattern="[0-9\-]{10,15}" title="半角数字とハイフンで入力してください" required></label>
+            <label class="field short">郵便番号<em>必須</em><input name="giftZip" inputmode="numeric" pattern="[0-9]{3}-?[0-9]{4}" title="例：400-0000" required></label>
+            <label class="field short">都道府県<em>必須</em><select name="giftPref" required></select></label>
+            <label class="field">市区町村・番地・建物名<em>必須</em><input name="giftAddress" maxlength="150" required></label>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="panel">
+          <legend>お届け・贈答のご指定</legend>
+          <label class="field short">お届け時期<em>必須</em><select name="period" required></select></label>
+          <label class="field short">時間帯<select name="time"></select></label>
+          <label class="field short">のし<select name="noshi"></select></label>
+          <label class="field short">のしのお名入れ<input name="noshiName" maxlength="30"></label>
+          <label class="field">メッセージカード（100文字まで）<textarea name="message" maxlength="100" rows="3"></textarea></label>
+          <label class="field">備考<textarea name="note" maxlength="200" rows="2"></textarea></label>
+        </fieldset>
+
+        <label class="check agree"><input type="checkbox" required> <span><a href="legal.html" target="_blank">特定商取引法に基づく表記・プライバシーポリシー</a>に同意する</span></label>
+        <p class="form-error" id="formError" role="alert" hidden></p>
+        <button class="btn btn-gold btn-block" type="submit" id="payButton">お支払いへ進む</button>
+        <p class="secure-note">カード情報は次の Stripe の決済画面で入力します。</p>
+      </form>
+
+      <aside class="summary panel">
+        <h2>ご注文内容</h2>
+        <ul id="summaryList"></ul>
+        <dl>
+          <div><dt>小計</dt><dd id="sumSubtotal"></dd></div>
+          <div><dt>送料（クール便）</dt><dd id="sumShipping"></dd></div>
+          <div class="grand"><dt>合計（税込）</dt><dd id="sumTotal"></dd></div>
+        </dl>
+      </aside>
+    </div>
+
+    <dialog id="demoDialog">
+      <h2>確認用の表示です</h2>
+      <p>お手元のパソコンで開いているため、<strong>決済は行われていません</strong>。</p>
+      <p>サイトを公開して Stripe を設定すると、このあとカード決済画面へ進みます。</p>
+      <p class="demo-total">お支払い予定額：<b id="demoTotal"></b></p>
+      <form method="dialog"><button class="btn btn-dark">閉じる</button></form>
+    </dialog>
+  </main>
+
+  <script src="js/catalog.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>
